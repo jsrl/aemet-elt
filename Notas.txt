@@ -1,0 +1,48 @@
+Ejemplo: Análisis de la calidad del aire en España 🌍💨
+Descripción
+Queremos analizar la evolución de la calidad del aire en España y su relación con las temperaturas a lo largo de los años.
+
+Datasets 📊
+Datos de calidad del aire 🌫
+
+Fuente: Portal de Datos del Ministerio para la Transición Ecológica
+📂 Archivos separados por año en CSV (calidad_aire_2021.csv, calidad_aire_2022.csv, etc.).
+Incluye datos de estaciones de medición con contaminantes como NO₂, PM10, SO₂, O₃.
+Datos de temperatura 🌡
+
+https://www.miteco.gob.es/es/calidad-y-evaluacion-ambiental/temas/atmosfera-y-calidad-del-aire/calidad-del-aire/evaluacion-datos/datos/datos-oficiales-2023.html
+https://gist.github.com/JustDevZero/139ad12e822c79496769#file-provinces_es-csv
+
+Fuente: AEMET Open Data
+📂 Archivos separados por año (temperatura_2021.csv, temperatura_2022.csv, etc.).
+Contiene temperaturas diarias por estación meteorológica.
+Pipeline de procesamiento 🔄
+Extracción y carga
+
+Leer los CSVs de calidad del aire y temperatura de varios años.
+Unirlos en un único DataFrame usando la fecha y la ubicación.
+Transformación
+
+Calcular la media mensual de contaminantes y temperatura.
+Crear un índice de contaminación para comparar zonas.
+Identificar correlaciones entre la contaminación y la temperatura.
+Carga y visualización
+
+Guardar los datos limpios en un nuevo archivo (aire_temperatura_final.csv).
+Generar dos gráficos tipo tile (heatmaps):
+Evolución de contaminación por año y mes.
+Mapa de correlación entre contaminación y temperatura.
+
+NO₂ (por el tráfico urbano)
+PM2.5 (por sus efectos en la salud y su relación con eventos de alta contaminación).
+
+
+1️⃣ Dióxido de Nitrógeno (NO₂) 🌫
+Fuente: Emisiones de vehículos diésel, industria.
+Impacto: Problemas respiratorios, agravamiento del asma.
+Motivo para destacarlo: Es uno de los contaminantes más problemáticos en ciudades como Madrid y Barcelona, donde el tráfico es intenso.
+
+2️⃣ Partículas en Suspensión (PM10 y PM2.5) 🏭
+Fuente: Tráfico, construcción, quema de biomasa.
+Impacto: Ingresan en los pulmones y pueden afectar el sistema cardiovascular.
+Motivo para destacarlo: En episodios de contaminación, suelen ser las que llevan a restricciones de tráfico.
