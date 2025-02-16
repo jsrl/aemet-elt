@@ -5,37 +5,36 @@ import os
 import requests
 from dotenv import load_dotenv
 
-# Cargar el archivo .env
+# Load the .env file for the AEMET_API_KEY
 load_dotenv()
-# Obtener la API key de la variable de entorno
-api_key = os.getenv("API_KEY")
+api_key = os.getenv("AEMET_API_KEY")
 
-# Establece las credenciales de GCP
+# Set GCP credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "keys/creds.json"
-os.environ["API_AEMET_TO_GCS__DESTINATION__BUCKET_URL"] = "gs://taxis-bucket-448121-i4/test-dlt"
+os.environ["WEATHER_STATIONS_TO_GCS__DESTINATION__BUCKET_URL"] = "gs://taxis-bucket-448121-i4"
 
-# Configura la pipeline para escribir en GCS
+# Configure the pipeline to write to GCS
 pipeline = dlt.pipeline(
-    pipeline_name="api_aemet_to_gcs",
-    destination="filesystem",  # Usamos "filesystem" como destino
-    dataset_name="test_dlt"
+    pipeline_name="weather_stations_to_gcs",
+    destination="filesystem",  # Use "filesystem" as the destination
+    dataset_name="weather_stations"
 )
 
-# Función para extraer datos de la API
+# Function to extract data from the API
 def extract_data():
     conn = http.client.HTTPSConnection("opendata.aemet.es")
     headers = {
         'cache-control': "no-cache"
     }
-    conn.request("GET", f"/opendata/api/valores/climatologicos/inventarioestaciones/todasestaciones/?api_key={api_key}", headers=headers)
+    conn.request("GET", f"/opendata/api/valores/climatologicos/inventarioestaciones/todasestaciones?api_key={api_key}", headers=headers)
     res = conn.getresponse()
     data = res.read()
     response_json = json.loads(data.decode("utf-8"))
     
-    # Obtener la URL del campo 'datos'
+    # Get the URL from the 'datos' field
     datos_url = response_json.get("datos")
     
-    # Hacer una segunda solicitud a la URL obtenida
+    # Make a second request to the obtained URL
     response = requests.get(datos_url)
     response.raise_for_status()
     data = response.json()
@@ -43,15 +42,13 @@ def extract_data():
     for record in data:
         yield record
 
-# Usar dlt para cargar datos desde la URL obtenida
-resource = dlt.resource(extract_data, name="api_data")
+# Use dlt to load data from the obtained URL
+resource = dlt.resource(extract_data, name="weather_stations")
 
-
-# Ejecuta la carga en GCS
+# Run the pipeline to load data into GCS
 load_info = pipeline.run(resource, loader_file_format="parquet", write_disposition="replace")
 
 row_counts = pipeline.last_trace.last_normalize_info
 print(row_counts)
 print("------")
 print(load_info)
-

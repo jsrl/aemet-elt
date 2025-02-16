@@ -6,19 +6,19 @@ import requests
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 
-# # Load the .env file for the AEMET_API_KEY
+# Load the .env file for the AEMET_API_KEY
 load_dotenv()
 api_key = os.getenv("AEMET_API_KEY")
 
 # Set GCP credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "keys/creds.json"
-os.environ["API_AEMET_TO_GCS__DESTINATION__BUCKET_URL"] = "gs://taxis-bucket-448121-i4/test-dlt"
+os.environ["CLIMATIC_VALUES_TO_GCS__DESTINATION__BUCKET_URL"] = "gs://taxis-bucket-448121-i4"
 
 # Configure the pipeline to write to GCS
 pipeline = dlt.pipeline(
-    pipeline_name="api_aemet_to_gcs",
+    pipeline_name="climatic_values_to_gcs",
     destination="filesystem",
-    dataset_name="test_dlt"
+    dataset_name="climatic_values"
 )
 
 # Parameter: year to extract data
@@ -68,7 +68,7 @@ def extract_data():
         # Update the start date for the next interval
         current_date = interval_end_date + timedelta(days=1)
 
-resource = dlt.resource(extract_data, name="api_data")
+resource = dlt.resource(extract_data, name="climatic_values")
 # Run the pipeline to load data into GCS
 load_info = pipeline.run(resource, loader_file_format="parquet", write_disposition="replace")
 
