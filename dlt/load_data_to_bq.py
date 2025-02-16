@@ -1,6 +1,7 @@
-from dlt.sources.filesystem import filesystem, readers
+from dlt.sources.filesystem import readers
 import dlt
 import os
+from dlt.destinations.adapters import bigquery_adapter
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "keys/creds.json"
 
@@ -13,7 +14,8 @@ def load_data_to_bq(bucket_url, pipeline_name, table_name):
     )
 
     parquet_reader = readers(bucket_url, file_glob="**/*.parquet").read_parquet()
-    load_info = pipeline.run(parquet_reader.with_name(table_name), write_disposition="replace")
+    load_info = pipeline.run(bigquery_adapter(parquet_reader.with_name(table_name), autodetect_schema=True), 
+                             write_disposition="replace")
     print(load_info)
     print(pipeline.last_trace.last_normalize_info)
 
