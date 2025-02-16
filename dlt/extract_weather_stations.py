@@ -4,6 +4,7 @@ import json
 import os
 import requests
 from dotenv import load_dotenv
+from dlt.destinations.adapters import bigquery_adapter
 
 # Load the .env file for the AEMET_API_KEY
 load_dotenv()
@@ -46,7 +47,9 @@ def extract_data():
 resource = dlt.resource(extract_data, name="weather_stations")
 
 # Run the pipeline to load data into GCS
-load_info = pipeline.run(resource, loader_file_format="parquet", write_disposition="replace")
+load_info = pipeline.run(bigquery_adapter(resource, autodetect_schema=True), 
+                         loader_file_format="parquet", 
+                         write_disposition="replace")
 
 row_counts = pipeline.last_trace.last_normalize_info
 print(row_counts)
