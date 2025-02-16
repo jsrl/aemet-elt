@@ -46,7 +46,12 @@ def extract_data():
 # Usar dlt para cargar datos desde la URL obtenida
 resource = dlt.resource(extract_data, name="api_data")
 
+
 # Ejecuta la carga en GCS
-load_info = pipeline.run(resource, loader_file_format="parquet")
+load_info = pipeline.run(resource, loader_file_format="parquet", write_disposition="replace")
+
+row_counts = pipeline.last_trace.last_normalize_info
+print(row_counts)
+print("------")
 print(load_info)
 

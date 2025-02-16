@@ -46,3 +46,10 @@ Motivo para destacarlo: Es uno de los contaminantes más problemáticos en ciuda
 Fuente: Tráfico, construcción, quema de biomasa.
 Impacto: Ingresan en los pulmones y pueden afectar el sistema cardiovascular.
 Motivo para destacarlo: En episodios de contaminación, suelen ser las que llevan a restricciones de tráfico.
+
+
+#############################
+
+
+/api/valores/climatologicos/mensualesanuales/datos/anioini/{anioIniStr}/aniofin/{anioFinStr}/estacion/{idema}
+
