@@ -6,57 +6,58 @@ import requests
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 
-# Cargar el archivo .env
+# # Load the .env file for the AEMET_API_KEY
 load_dotenv()
-# Obtener la API key de la variable de entorno
-api_key = os.getenv("API_KEY")
+api_key = os.getenv("AEMET_API_KEY")
 
-# Establece las credenciales de GCP
+# Set GCP credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "keys/creds.json"
 os.environ["API_AEMET_TO_GCS__DESTINATION__BUCKET_URL"] = "gs://taxis-bucket-448121-i4/test-dlt"
 
-# Configura la pipeline para escribir en GCS
+# Configure the pipeline to write to GCS
 pipeline = dlt.pipeline(
     pipeline_name="api_aemet_to_gcs",
-    destination="filesystem",  # Usamos "filesystem" como destino
+    destination="filesystem",
     dataset_name="test_dlt"
 )
 
-# Parámetro: año para extraer los datos
+# Parameter: year to extract data
 year = 2024
 
-# Generar fechas de inicio y fin para el año especificado
-fecha_inicio = datetime(year, 1, 1)
-fecha_fin = datetime(year, 12, 31)
+# Generate start and end dates for the specified year
+start_date = datetime(year, 1, 1)
+end_date = datetime(year, 12, 31)
 
-# Función para extraer datos de la API en intervalos de 15 días
+# Function to extract data from the API in 15-day intervals
 def extract_data():
-    current_date = fecha_inicio
-    while current_date <= fecha_fin:
-        # Calculamos la fecha de fin para este intervalo de 15 días
-        end_date = current_date + timedelta(days=14)
+    current_date = start_date
+    while current_date <= end_date:
+        # Calculate the end date for this 15-day interval
+        interval_end_date = current_date + timedelta(days=14)
+        # Ensure the end date does not exceed the specified end date
+        if interval_end_date > end_date:
+            interval_end_date = end_date
         
-        # Formatear las fechas a string en el formato necesario
-        fechaIniStr = current_date.strftime("%Y-%m-%dT%H:%M:%SUTC")
-        fechaFinStr = end_date.strftime("%Y-%m-%dT%H:%M:%SUTC")
+        # Format the dates as strings in the required format
+        start_date_str = current_date.strftime("%Y-%m-%dT%H:%M:%SUTC")
+        end_date_str = interval_end_date.strftime("%Y-%m-%dT%H:%M:%SUTC")
 
-        print(f"Extrayendo datos para el intervalo: {fechaIniStr} - {fechaFinStr}")
+        print(f"Extracting data for the interval: {start_date_str} - {end_date_str}")
 
-        # Realizar la solicitud a la API
+        # Make the API request
         conn = http.client.HTTPSConnection("opendata.aemet.es")
         headers = {
             'cache-control': "no-cache"
         }
-        conn.request("GET", f"/opendata/api/valores/climatologicos/diarios/datos/fechaini/{fechaIniStr}/fechafin/{fechaFinStr}/todasestaciones?api_key={api_key}", headers=headers)
+        conn.request("GET", f"/opendata/api/valores/climatologicos/diarios/datos/fechaini/{start_date_str}/fechafin/{end_date_str}/todasestaciones?api_key={api_key}", headers=headers)
         res = conn.getresponse()
         data = res.read()
         response_json = json.loads(data.decode("utf-8"))
         
-        # Obtener la URL del campo 'datos'
-        datos_url = response_json.get("datos")
-        
+        # Get the URL from the 'datos' field
+        datos_url = response_json.get("datos")        
         if datos_url:
-            # Hacer una segunda solicitud a la URL obtenida
+            # Make a second request to the obtained URL
             response = requests.get(datos_url)
             response.raise_for_status()
             data = response.json()
@@ -64,13 +65,11 @@ def extract_data():
             for record in data:
                 yield record
 
-        # Actualizar la fecha de inicio para el siguiente intervalo
-        current_date = end_date + timedelta(days=1)
+        # Update the start date for the next interval
+        current_date = interval_end_date + timedelta(days=1)
 
-# Usar dlt para cargar datos desde la URL obtenida
 resource = dlt.resource(extract_data, name="api_data")
-
-# Ejecuta la carga en GCS
+# Run the pipeline to load data into GCS
 load_info = pipeline.run(resource, loader_file_format="parquet", write_disposition="replace")
 
 row_counts = pipeline.last_trace.last_normalize_info
