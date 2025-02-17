@@ -1,0 +1,4 @@
+dlt
+python-dotenv
+dlt[filesystem]
+dlt[bigquery]
