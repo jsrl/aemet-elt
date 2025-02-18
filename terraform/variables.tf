@@ -1,6 +1,6 @@
 variable "credentials" {
-  description = "My Credentials"
-  default     = "keys/my-creds.json"
+  description = "GCP Credentials"
+  default     = "../keys/creds.json"
 }
 
 variable "project" {
@@ -10,22 +10,27 @@ variable "project" {
 
 variable "region" {
   description = "Region"
-  default = "us-central1"
+  default = "europe-southwest1"
 }
 
 variable "location" {
   description = "Project Location"
-  default = "US"
+  default = "EU"
 }
 
-variable "bq_dataset_name" {
-  description = "My BigQuery Dataset Name"
-  default = "demo_dataset"
+variable "bq_dataset_weather" {
+  description = "Weather dataset"
+  default = "weather_dataset"
+}
+
+variable "bq_dataset_dbt" {
+  description = "Dbt dataset"
+  default = "dbt_dataset"
 }
 
 variable "gcs_bucket_name" {
-  description = "My Storage Bucket Name"
-  default = "terraform-demo-terra-bucket-448121-i4"
+  description = "Storage bucket name"
+  default = "aemet-weather-data-bucket"
 }
 
 variable "gcs_storage_class" {

@@ -3,6 +3,6 @@ keys/
 .env
 # Terraform
 .terraform/
-#*.tfstate
-#*.tfstate.*
+*.tfstate
+*.tfstate.*
 .terraform.lock.hcl

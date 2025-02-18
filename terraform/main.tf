@@ -13,7 +13,7 @@ provider "google" {
   region      = var.region
 }
 
-resource "google_storage_bucket" "demo-bucket" {
+resource "google_storage_bucket" "weather-bucket" {
   name          = var.gcs_bucket_name
   location      = var.location
   force_destroy = true
@@ -29,7 +29,12 @@ resource "google_storage_bucket" "demo-bucket" {
   }
 }
 
-resource "google_bigquery_dataset" "demo_dataset" {
-  dataset_id = var.bq_dataset_name
+resource "google_bigquery_dataset" "weather_dataset" {
+  dataset_id = var.bq_dataset_weather
+  location   = var.location
+}
+
+resource "google_bigquery_dataset" "dbt_dataset" {
+  dataset_id = var.bq_dataset_dbt
   location   = var.location
 }
