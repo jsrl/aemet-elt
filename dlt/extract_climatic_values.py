@@ -63,6 +63,7 @@ def extract_data():
             data = response.json()
             
             for record in data:
+                record["ano"] = year # Adding partition field
                 yield record
 
         # Update the start date for the next interval
