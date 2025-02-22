@@ -8,14 +8,14 @@ tasks:
     kvType: JSON
     value: |
       {
-        # full key here
+      keyHere
       }
 
   - id: gcp_project_id
     type: io.kestra.plugin.core.kv.Set
     key: GCP_PROJECT_ID
     kvType: STRING
-    value: aemetelt
+    value: projectHere
 
   - id: gcp_location
     type: io.kestra.plugin.core.kv.Set
@@ -27,5 +27,11 @@ tasks:
     type: io.kestra.plugin.core.kv.Set
     key: GCP_BUCKET_NAME
     kvType: STRING
-    value: aemet-weather-data-bucket
+    value: gs://aemet-weather-data-bucket
+
+  - id: aemet_api_key
+    type: io.kestra.plugin.core.kv.Set
+    key: AEMET_API_KEY
+    kvType: STRING
+    value: keyHere
 
