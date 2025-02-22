@@ -1,5 +1,5 @@
 id: load_gcp_kv
-namespace: zoomcamp
+namespace: aemetelt
 
 tasks:
   - id: gcp_creds
@@ -15,17 +15,17 @@ tasks:
     type: io.kestra.plugin.core.kv.Set
     key: GCP_PROJECT_ID
     kvType: STRING
-    value: # Replace with your project id
+    value: aemetelt
 
   - id: gcp_location
     type: io.kestra.plugin.core.kv.Set
     key: GCP_LOCATION
     kvType: STRING
-    value: US # Replace with your location
+    value: EU
 
   - id: gcp_bucket_name
     type: io.kestra.plugin.core.kv.Set
     key: GCP_BUCKET_NAME
     kvType: STRING
-    value: taxis-bucket-448121-i4 # Make sure it's globally unique!
+    value: aemet-weather-data-bucket
 
