@@ -3,8 +3,7 @@ id: extract_weather_dlt
 namespace: aemetelt
 description: |
   Best to add a label `backfill:true` from the UI to track executions created via a backfill.
-  CSV data used here comes from: https://github.com/DataTalksClub/nyc-tlc-data/releases
-
+  
 tasks:
   - id: dlt_extract_weather_stations
     type: io.kestra.plugin.scripts.python.Script
@@ -12,20 +11,16 @@ tasks:
       type: io.kestra.plugin.scripts.runner.docker.Docker    
     containerImage: python:3.13
     beforeCommands:
-      - pip install kestra
-      - pip install dlt
       - pip install "dlt[gs]"
       - pip install pyarrow
     env:
       WEATHER_STATIONS_TO_GCS__CREDENTIALS: "{{ kv('GCP_CREDS') }}"
-      AEMET_API_KEY: "{{ kv('AEMET_API_KEY') }}"
       WEATHER_STATIONS_TO_GCS__DESTINATION__BUCKET_URL: "{{ kv('GCP_BUCKET_NAME') }}"
     warningOnStdErr: false
     script: |
       import dlt
       import http.client
       import json
-      import os
       import requests
 
       api_key = "{{kv('AEMET_API_KEY')}}"
@@ -80,4 +75,3 @@ triggers:
     cron: "0 9 1 * *"
     inputs:
       taxi: green
-
