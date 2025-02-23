@@ -1,0 +1,21 @@
+id: extract_load_master_flow
+namespace: aemetelt
+description: "Master flow that extracts and loads the weather data"
+
+tasks:
+  - id: extract_weather_data
+    type: io.kestra.plugin.core.flow.Subflow
+    namespace: aemetelt
+    flowId: extract_weather_data
+    wait: true
+
+  - id: load_weather_data
+    type: io.kestra.plugin.core.flow.Subflow
+    namespace: aemetelt
+    flowId: load_weather_data 
+    wait: true 
+
+triggers:
+  - id: schedule
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "0 9 1 * *"
