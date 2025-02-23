@@ -1,4 +1,4 @@
-dlt
 python-dotenv
-dlt[filesystem]
-dlt[bigquery]
+dlt[gs]
+pyarrow
+#dlt[bigquery]

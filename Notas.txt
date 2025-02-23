@@ -53,3 +53,6 @@ Motivo para destacarlo: En episodios de contaminación, suelen ser las que lleva
 
 /api/valores/climatologicos/mensualesanuales/datos/anioini/{anioIniStr}/aniofin/{anioFinStr}/estacion/{idema}
 
+
+
+pip uninstall -y $(pip freeze | awk -F'==' '{print $1}')
