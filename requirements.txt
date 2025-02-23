@@ -1,4 +1,4 @@
 python-dotenv
 dlt[gs]
 pyarrow
-#dlt[bigquery]
+dlt[bigquery]

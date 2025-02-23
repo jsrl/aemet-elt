@@ -21,7 +21,7 @@ tasks:
     type: io.kestra.plugin.core.kv.Set
     key: GCP_LOCATION
     kvType: STRING
-    value: EU
+    value: US
 
   - id: gcp_bucket_name
     type: io.kestra.plugin.core.kv.Set
@@ -35,3 +35,8 @@ tasks:
     kvType: STRING
     value: keyHere
 
+  - id: gcp_weather_dataset
+    type: io.kestra.plugin.core.kv.Set
+    key: GCP_WEATHER_DATASET
+    kvType: STRING
+    value: weather_dataset

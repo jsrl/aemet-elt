@@ -1,5 +1,5 @@
 
-id: extract_weather
+id: extract_weather_data
 namespace: aemetelt
 description: |
   Best to add a label `backfill:true` from the UI to track executions created via a backfill.
@@ -11,7 +11,8 @@ tasks:
       type: io.kestra.plugin.scripts.runner.docker.Docker    
     containerImage: python:3.13
     beforeCommands:
-      - pip install "dlt[bigquery]"
+      - pip install "dlt[gs]"
+      - pip install pyarrow
     env:
       CLIMATIC_VALUES_TO_GCS__CREDENTIALS: "{{ kv('GCP_CREDS') }}"
       CLIMATIC_VALUES_TO_GCS__DESTINATION__BUCKET_URL: "{{ kv('GCP_BUCKET_NAME') }}"

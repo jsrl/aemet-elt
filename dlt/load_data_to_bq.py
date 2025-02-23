@@ -10,7 +10,7 @@ def load_data_to_bq(bucket_url, pipeline_name, table_name, partition_field=None)
     pipeline = dlt.pipeline(
         pipeline_name=pipeline_name,
         destination="bigquery", 
-        dataset_name="dlt",
+        dataset_name="weather_dataset",
     )
     
     parquet_reader = readers(bucket_url, file_glob="**/*.parquet").read_parquet()
@@ -20,11 +20,11 @@ def load_data_to_bq(bucket_url, pipeline_name, table_name, partition_field=None)
     print(pipeline.last_trace.last_normalize_info)
 
 def load_weather_stations_to_bq():
-    bucket_url = "gs://taxis-bucket-448121-i4/weather_stations"
+    bucket_url = "gs://aemet-weather-data-bucket/weather_stations"
     load_data_to_bq(bucket_url, "load_bq_weather_stations", "weather_stations")
 
 def load_climatic_values_to_bq():
-    bucket_url = "gs://taxis-bucket-448121-i4/climatic_values"
+    bucket_url = "gs://aemet-weather-data-bucket/climatic_values"
     load_data_to_bq(bucket_url, "load_bq_climatic_values", "climatic_values", partition_field="ano")
 
 load_weather_stations_to_bq()
