@@ -14,7 +14,7 @@ tasks:
       - pip install "dlt[bigquery]"
     env:
       LOAD_BQ_WEATHER_STATIONS__CREDENTIALS: "{{ kv('GCP_CREDS') }}"
-      LOAD_BQ_CLIMATIC_VALUES___CREDENTIALS: "{{ kv('GCP_CREDS') }}"
+      LOAD_BQ_CLIMATIC_VALUES__CREDENTIALS: "{{ kv('GCP_CREDS') }}"
     warningOnStdErr: false
     script: |
       from dlt.sources.filesystem import readers
