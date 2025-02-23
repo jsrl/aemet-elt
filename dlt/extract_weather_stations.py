@@ -11,7 +11,7 @@ api_key = os.getenv("AEMET_API_KEY")
 
 # Set GCP credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "keys/creds.json"
-os.environ["WEATHER_STATIONS_TO_GCS__DESTINATION__BUCKET_URL"] = "gs://taxis-bucket-448121-i4"
+os.environ["WEATHER_STATIONS_TO_GCS__DESTINATION__BUCKET_URL"] = "gs://aemet-weather-data-bucket"
 
 # Configure the pipeline to write to GCS
 pipeline = dlt.pipeline(
