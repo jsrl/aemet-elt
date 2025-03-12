@@ -10,27 +10,18 @@ Ensure you have the following installed and configured:
 - Python (recommended: latest stable version)
 
 ## Terraform Setup
-
-Initialize Terraform: 
 ```sh
 cd terraform
 terraform init
-```
-Run a plan to preview the changes:
-```sh
 terraform plan -var="project=projectId"
-```
-Expected output:
-```sh
-Plan: 3 to add, 0 to change, 0 to destroy.
-```
-
-Apply the changes:
-```sh
 terraform apply -var="project=projectId"
 ```
-Exprected output:
+Expected outputs:
 ```sh
+Terraform has been successfully initialized!
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
 Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 ```
 
