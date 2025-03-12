@@ -1,6 +1,7 @@
 # Credentials and other secrets
 keys/
 .env
+
 # Terraform
 .terraform/
 *.tfstate
