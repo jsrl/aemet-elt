@@ -4,8 +4,7 @@
 
 Ensure you have the following installed and configured:
 
-- A Google Cloud Project  
-- A Terraform Service Account with associated key  
+- A Google Cloud Project with a Service Account and its associated key.
 - Docker Desktop  
 - Python (recommended: latest stable version)
 
