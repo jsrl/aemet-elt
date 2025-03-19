@@ -2,12 +2,22 @@ id: extract_load_master_flow
 namespace: aemetelt
 description: "Master flow that extracts and loads the weather data"
 
+inputs:
+  - id: year    
+    type: INT
+    required: true    
+    min: 2015    
+    max: 2024    
+    displayName: "Input year"
+
 tasks:
   - id: extract_weather_data
     type: io.kestra.plugin.core.flow.Subflow
     namespace: aemetelt
     flowId: extract_weather_data
     wait: true
+    inputs:
+      year: "{{ inputs.year }}"
 
   - id: load_weather_data
     type: io.kestra.plugin.core.flow.Subflow
