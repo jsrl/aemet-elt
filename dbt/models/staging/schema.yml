@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: staging
+    database: aemetelt
+    schema: weather_dataset
+
+    tables:
+      - name: climatic_values
+      - name: weather_stations
