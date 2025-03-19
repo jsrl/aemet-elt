@@ -24,7 +24,7 @@ pipeline = dlt.pipeline(
 )
 
 # Parameter: year to extract data
-year = 2022
+year = 2024
 
 # Generate start and end dates for the specified year
 start_date = datetime(year, 1, 1)
