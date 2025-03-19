@@ -24,7 +24,7 @@ pipeline = dlt.pipeline(
 )
 
 # Parameter: year to extract data
-year = 2024
+year = 2022
 
 # Generate start and end dates for the specified year
 start_date = datetime(year, 1, 1)
@@ -78,7 +78,7 @@ def extract_data():
 resource = dlt.resource(extract_data, name="climatic_values")
 
 # Run the pipeline to load data into GCS
-load_info = pipeline.run(resource, loader_file_format="parquet", write_disposition="replace")
+load_info = pipeline.run(resource, loader_file_format="parquet", write_disposition="append")
 
 # Print the schema of the pipeline
 # print(pipeline.default_schema.to_pretty_yaml())
