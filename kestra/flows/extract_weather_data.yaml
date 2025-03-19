@@ -76,8 +76,11 @@ tasks:
                   data = response.json()
                   
                   for record in data:
-                      record["ano"] = year # Adding partition field
-                      yield record
+                    for key, value in record.items():
+                        if isinstance(value, str):
+                            record[key] = value.replace(',', '.')   # Replace commas with periods
+                    record["ano"] = year                            # Adding partition field
+                    yield record
 
               # Update the start date for the next interval
               current_date = interval_end_date + timedelta(days=1)
@@ -85,6 +88,9 @@ tasks:
       resource = dlt.resource(extract_data, name="climatic_values")
       # Run the pipeline to load data into GCS
       load_info = pipeline.run(resource, loader_file_format="parquet", write_disposition="replace")
+
+      # Print the schema of the pipeline
+      # print(pipeline.default_schema.to_pretty_yaml())
 
       row_counts = pipeline.last_trace.last_normalize_info
       print(row_counts)

@@ -14,7 +14,7 @@ def load_data_to_bq(bucket_url, pipeline_name, table_name, partition_field=None)
     )
     
     parquet_reader = readers(bucket_url, file_glob="**/*.parquet").read_parquet()
-    load_info = pipeline.run(bigquery_adapter(parquet_reader.with_name(table_name), autodetect_schema=True, partition=partition_field), 
+    load_info = pipeline.run(bigquery_adapter(parquet_reader.with_name(table_name), autodetect_schema=False, partition=partition_field), 
                              write_disposition="replace")
     print(load_info)
     print(pipeline.last_trace.last_normalize_info)
