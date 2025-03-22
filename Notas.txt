@@ -13,12 +13,12 @@ WHERE table_name = 'test';
 
 
 
-Climate values
-Metadata: https://opendata.aemet.es/opendata/sh/b3aa9d28
-
-Weather stations
-Metadata: https://opendata.aemet.es/opendata/sh/0556af7a
-
+## Python Environment Setup
+```sh
+python -m venv venv
+source venv/Scripts/activate
+pip install -r requirements.txt
+```
 
 https://www.aemet.es/documentos/es/conocermas/maritima/escalas_de_viento_y_oleaje.pdf
 
