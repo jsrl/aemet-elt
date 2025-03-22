@@ -1,58 +1,82 @@
-Ejemplo: Análisis de la calidad del aire en España 🌍💨
-Descripción
-Queremos analizar la evolución de la calidad del aire en España y su relación con las temperaturas a lo largo de los años.
+CREATE EXTERNAL TABLE `weather_dataset.test`
+OPTIONS (
+  format = 'PARQUET',
+  uris = ['gs://aemet-weather-data-bucket/climatic_values/climatic_values/*.parquet']
+);
 
-Datasets 📊
-Datos de calidad del aire 🌫
-
-Fuente: Portal de Datos del Ministerio para la Transición Ecológica
-📂 Archivos separados por año en CSV (calidad_aire_2021.csv, calidad_aire_2022.csv, etc.).
-Incluye datos de estaciones de medición con contaminantes como NO₂, PM10, SO₂, O₃.
-Datos de temperatura 🌡
-
-https://www.miteco.gob.es/es/calidad-y-evaluacion-ambiental/temas/atmosfera-y-calidad-del-aire/calidad-del-aire/evaluacion-datos/datos/datos-oficiales-2023.html
-https://gist.github.com/JustDevZero/139ad12e822c79496769#file-provinces_es-csv
-
-Fuente: AEMET Open Data
-📂 Archivos separados por año (temperatura_2021.csv, temperatura_2022.csv, etc.).
-Contiene temperaturas diarias por estación meteorológica.
-Pipeline de procesamiento 🔄
-Extracción y carga
-
-Leer los CSVs de calidad del aire y temperatura de varios años.
-Unirlos en un único DataFrame usando la fecha y la ubicación.
-Transformación
-
-Calcular la media mensual de contaminantes y temperatura.
-Crear un índice de contaminación para comparar zonas.
-Identificar correlaciones entre la contaminación y la temperatura.
-Carga y visualización
-
-Guardar los datos limpios en un nuevo archivo (aire_temperatura_final.csv).
-Generar dos gráficos tipo tile (heatmaps):
-Evolución de contaminación por año y mes.
-Mapa de correlación entre contaminación y temperatura.
-
-NO₂ (por el tráfico urbano)
-PM2.5 (por sus efectos en la salud y su relación con eventos de alta contaminación).
+select * from `weather_dataset.test` where indicativo ='2755X' and fecha = '2024-01-01';
 
 
-1️⃣ Dióxido de Nitrógeno (NO₂) 🌫
-Fuente: Emisiones de vehículos diésel, industria.
-Impacto: Problemas respiratorios, agravamiento del asma.
-Motivo para destacarlo: Es uno de los contaminantes más problemáticos en ciudades como Madrid y Barcelona, donde el tráfico es intenso.
-
-2️⃣ Partículas en Suspensión (PM10 y PM2.5) 🏭
-Fuente: Tráfico, construcción, quema de biomasa.
-Impacto: Ingresan en los pulmones y pueden afectar el sistema cardiovascular.
-Motivo para destacarlo: En episodios de contaminación, suelen ser las que llevan a restricciones de tráfico.
-
-
-#############################
-
-
-/api/valores/climatologicos/mensualesanuales/datos/anioini/{anioIniStr}/aniofin/{anioFinStr}/estacion/{idema}
+SELECT column_name, data_type 
+FROM `weather_dataset.INFORMATION_SCHEMA.COLUMNS`
+WHERE table_name = 'test';
 
 
 
-pip uninstall -y $(pip freeze | awk -F'==' '{print $1}')
+Climate values
+Metadata: https://opendata.aemet.es/opendata/sh/b3aa9d28
+
+Weather stations
+Metadata: https://opendata.aemet.es/opendata/sh/0556af7a
+
+
+https://www.aemet.es/documentos/es/conocermas/maritima/escalas_de_viento_y_oleaje.pdf
+
+
+
+}, {
+  "fecha" : "2024-01-01",
+  "indicativo" : "2755X",
+  "nombre" : "BENAVENTE",
+  "provincia" : "ZAMORA",
+  "altitud" : "715",
+  "tmed" : "6,0",
+  "prec" : "0,0",
+  "tmin" : "1,7",
+  "horatmin" : "08:20",
+  "tmax" : "10,2",
+  "horatmax" : "13:50",
+  "dir" : "22",
+  "velmedia" : "2,5",
+  "racha" : "8,1",
+  "horaracha" : "14:40",
+  "sol" : "5,5",
+  "presMax" : "938,1",
+  "horaPresMax" : "10",
+  "presMin" : "935,5",
+  "horaPresMin" : "02",
+  "hrMedia" : "72",
+  "hrMax" : "88",
+  "horaHrMax" : "06:30",
+  "hrMin" : "55",
+  "horaHrMin" : "13:20"
+}
+
+
+
+
+}, {
+  "latitud" : "420039N",
+  "provincia" : "ZAMORA",
+  "altitud" : "715",
+  "indicativo" : "2755X",
+  "nombre" : "BENAVENTE",
+  "indsinop" : "08056",
+  "longitud" : "054000W"
+},
+
+
+---------------------
+
+Used codegen macro for generating the dbt models (code and compile)
+
+{% set models_to_generate = codegen.get_models(directory='staging', prefix='stg_') %}
+{{ codegen.generate_model_yaml(
+    model_names = models_to_generate
+) }}
+
+
+{% set models_to_generate = codegen.get_models(directory='core') %}
+{{ codegen.generate_model_yaml(
+    model_names = models_to_generate
+) }}
