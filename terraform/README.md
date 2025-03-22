@@ -1,14 +1,4 @@
-# Terraform
-
-Expected outputs:
-```sh
-Terraform has been successfully initialized!
-
-Plan: 3 to add, 0 to change, 0 to destroy.
-
-Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
-```
-
+# Using Terraform with Google Cloud Platform
 
 ## Key Terraform Commands
 1. **`terraform init`**: Initializes the Terraform project and downloads the required providers.
@@ -22,8 +12,20 @@ Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
   terraform fmt
   ```
 
-## Using Terraform with Google Cloud Platform
-### Authentication
+## Service Account
+
+The service account created for this project is the following:
+
+![terraform service account](../images/terraform-service-account.png)
+
+This account has been assigned the following permissions:
+
+![terraform service account](../images//terraform-service-account-permissions.png)
+
+> **Note**: The permissions outlined here (such as **Storage Admin** or **BigQuery Admin**) are broad and intended for development purposes. In a production environment, it is recommended to follow the principle of least privilege by granting more restricted permissions that only allow the necessary actions. This helps to minimize security risks and ensure a more secure environment.
+
+
+## Authentication
 1. Authenticate with Google Cloud:
    ```bash
    gcloud auth application-default login
@@ -33,14 +35,28 @@ Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
    export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/key.json"
    ```
 
-### Example:
+### Commands for creating the infrastructure
 ```bash
 terraform plan -var="project=XXXXXXXX-XXXXXX"
 terraform apply -var="project=XXXXXXXX-XXXXXX"
 terraform destroy -var="project=XXXXXXXX-XXXXXX"
 ```
 
-### Check data types
+### Expected outputs
+```sh
+Terraform has been successfully initialized!
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+```
+
+
+### Check data types from BigQuery
+
+It is useful to run a query against the external table in BigQuery to check the data types of the newly created Parquet files before loading them into BigQuery. This allows you to verify the structure and ensure that the data is correctly formatted.
+
+
 ```sql
 CREATE EXTERNAL TABLE `weather_dataset.test`
 OPTIONS (
@@ -54,5 +70,5 @@ select * from `weather_dataset.test` where indicativo ='2755X' and fecha = '2024
 SELECT column_name, data_type 
 FROM `weather_dataset.INFORMATION_SCHEMA.COLUMNS`
 WHERE table_name = 'test';
-
 ```
+This query will give you the data types of the columns in the Parquet files, which is helpful to ensure compatibility and avoid any potential issues when importing the data into BigQuery.

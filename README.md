@@ -58,6 +58,12 @@ To use these APIs, you can obtain a free API key by registering here:
 
 ### 1. Setting Up Infrastructure with Terraform
 
+Before setting up the infrastructure, you must create a **Service Account** with the necessary permissions to manage resources in Google Cloud Platform. The Service Account should have the following permissions:
+
+Once the Service Account is created, ensure you download the **JSON key** and configure it in your environment to authenticate Terraform with GCP.
+
+After that, you can proceed with the following steps to set up the infrastructure:
+
 ```sh
 cd terraform
 terraform init
@@ -66,10 +72,12 @@ terraform apply -var="project=projectId"
 ```
 
 After running this, Terraform will create:
-* A GCS bucket for storing the data.
+* A GCS bucket to store the data.
+
 ![gcs bucket creation](images/bucket-creation.png)
-* Two BigQuery datasets (one for raw and another one for transformed data).
-![bigquery datasets creation](datasets-creation.png)
+* Two BigQuery datasets: one for raw data and another for transformed data.
+
+![bigquery datasets creation](images/datasets-creation.png)
 
 For more detailed explanations and expected outputs, refer to the [Terraform README](terraform/README.md).
 
