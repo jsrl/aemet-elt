@@ -1,0 +1,54 @@
+Climate values
+Metadata: https://opendata.aemet.es/opendata/sh/b3aa9d28
+
+Weather stations
+Metadata: https://opendata.aemet.es/opendata/sh/0556af7a
+
+
+https://www.aemet.es/documentos/es/conocermas/maritima/escalas_de_viento_y_oleaje.pdf
+
+
+
+}, {
+  "fecha" : "2024-01-01",
+  "indicativo" : "2755X",
+  "nombre" : "BENAVENTE",
+  "provincia" : "ZAMORA",
+  "altitud" : "715",
+  "tmed" : "6,0",
+  "prec" : "0,0",
+  "tmin" : "1,7",
+  "horatmin" : "08:20",
+  "tmax" : "10,2",
+  "horatmax" : "13:50",
+  "dir" : "22",
+  "velmedia" : "2,5",
+  "racha" : "8,1",
+  "horaracha" : "14:40",
+  "sol" : "5,5",
+  "presMax" : "938,1",
+  "horaPresMax" : "10",
+  "presMin" : "935,5",
+  "horaPresMin" : "02",
+  "hrMedia" : "72",
+  "hrMax" : "88",
+  "horaHrMax" : "06:30",
+  "hrMin" : "55",
+  "horaHrMin" : "13:20"
+}
+
+
+
+
+}, {
+  "latitud" : "420039N",
+  "provincia" : "ZAMORA",
+  "altitud" : "715",
+  "indicativo" : "2755X",
+  "nombre" : "BENAVENTE",
+  "indsinop" : "08056",
+  "longitud" : "054000W"
+},
+
+
+VIDEO 41:07

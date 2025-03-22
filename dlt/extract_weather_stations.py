@@ -14,7 +14,9 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "keys/creds.json"
 os.environ["WEATHER_STATIONS_TO_GCS__DESTINATION__BUCKET_URL"] = "gs://aemet-weather-data-bucket"
 
 # Configure the pipeline to write to GCS
-pipeline = dlt.pipeline(
+pipeline = dlt.pipeline(    
+    import_schema_path="dlt/schemas/import",
+    export_schema_path="dlt/schemas/export",
     pipeline_name="weather_stations_to_gcs",
     destination="filesystem",  # Use "filesystem" as the destination
     dataset_name="weather_stations"
@@ -47,6 +49,9 @@ resource = dlt.resource(extract_data, name="weather_stations")
 
 # Run the pipeline to load data into GCS
 load_info = pipeline.run(resource, loader_file_format="parquet", write_disposition="replace")
+
+# Print the schema of the pipeline
+# print(pipeline.default_schema.to_pretty_yaml())
 
 row_counts = pipeline.last_trace.last_normalize_info
 print(row_counts)

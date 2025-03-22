@@ -12,10 +12,12 @@ api_key = os.getenv("AEMET_API_KEY")
 
 # Set GCP credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "keys/creds.json"
-os.environ["CLIMATIC_VALUES_TO_GCS__DESTINATION__BUCKET_URL"] = "gs://taxis-bucket-448121-i4"
+os.environ["CLIMATIC_VALUES_TO_GCS__DESTINATION__BUCKET_URL"] = "gs://aemet-weather-data-bucket"
 
 # Configure the pipeline to write to GCS
 pipeline = dlt.pipeline(
+    import_schema_path="dlt/schemas/import",
+    export_schema_path="dlt/schemas/export",
     pipeline_name="climatic_values_to_gcs",
     destination="filesystem",
     dataset_name="climatic_values"
@@ -63,15 +65,23 @@ def extract_data():
             data = response.json()
             
             for record in data:
-                record["ano"] = year # Adding partition field
+                for key, value in record.items():
+                    if isinstance(value, str):
+                        record[key] = value.replace(',', '.')   # Replace commas with periods
+                record["ano"] = year                            # Adding partition field
                 yield record
 
         # Update the start date for the next interval
         current_date = interval_end_date + timedelta(days=1)
 
+# Define the resource to extract data
 resource = dlt.resource(extract_data, name="climatic_values")
+
 # Run the pipeline to load data into GCS
-load_info = pipeline.run(resource, loader_file_format="parquet", write_disposition="replace")
+load_info = pipeline.run(resource, loader_file_format="parquet", write_disposition="append")
+
+# Print the schema of the pipeline
+# print(pipeline.default_schema.to_pretty_yaml())
 
 row_counts = pipeline.last_trace.last_normalize_info
 print(row_counts)
