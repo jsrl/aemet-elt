@@ -80,3 +80,7 @@ Used codegen macro for generating the dbt models (code and compile)
 {{ codegen.generate_model_yaml(
     model_names = models_to_generate
 ) }}
+
+
+
+https://lookerstudio.google.com/u/0/navigation/reporting

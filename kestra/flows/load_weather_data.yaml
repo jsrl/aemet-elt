@@ -21,7 +21,7 @@ tasks:
       import dlt
       from dlt.destinations.adapters import bigquery_adapter
 
-      def load_data_to_bq(bucket_url, pipeline_name, table_name, partition_field=None):
+      def load_data_to_bq(bucket_url, pipeline_name, table_name, partition_field=None, cluster_field=None):
           print(f"Starting load for {table_name}...")
           pipeline = dlt.pipeline(
               pipeline_name=pipeline_name,
@@ -37,11 +37,11 @@ tasks:
 
       def load_weather_stations_to_bq():
           bucket_url = "{{ kv('GCP_BUCKET_NAME') }}/weather_stations"
-          load_data_to_bq(bucket_url, "load_bq_weather_stations", "weather_stations")
+          load_data_to_bq(bucket_url, "load_bq_weather_stations", "weather_stations", cluster_field="provincia")
 
       def load_climatic_values_to_bq():
           bucket_url = "{{ kv('GCP_BUCKET_NAME') }}/climatic_values"
-          load_data_to_bq(bucket_url, "load_bq_climatic_values", "climatic_values", partition_field="ano")
+          load_data_to_bq(bucket_url, "load_bq_climatic_values", "climatic_values", partition_field="ano", cluster_field="indicativo")
 
       load_weather_stations_to_bq()
       load_climatic_values_to_bq()
