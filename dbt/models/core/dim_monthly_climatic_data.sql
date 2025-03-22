@@ -20,3 +20,4 @@ select
 
 from fact_weather
 group by 1, 2, 3
+order by region asc, province asc, weather_month asc
