@@ -41,18 +41,18 @@ Ensure you have the following installed and configured:
 
 ## Datasets
 
-AEMET provides open data APIs to access meteorological data for Spain, including climate values and weather station information. You can explore the available APIs [here](https://opendata.aemet.es/dist/index.html?).
+AEMET provides [open data APIs](https://opendata.aemet.es/dist/index.html?) to access meteorological data for Spain, including climate values and weather station information.
 
-To use these APIs, you can obtain a free API key by registering here:  
-[Get your free API Key](https://opendata.aemet.es/centrodedescargas/altaUsuario)
+To use these APIs, you can obtain a free API key by registering [here](https://opendata.aemet.es/centrodedescargas/altaUsuario).
+
 
 ### API Data Sources
 
-- **Weather Stations Resource**:  
-  This resource provides information about meteorological stations, including their province, name, and unique identifier (indicativo). Details can be found [here](https://opendata.aemet.es/opendata/sh/0556af7a).
+- **[Weather Stations](https://opendata.aemet.es/opendata/sh/0556af7a) Resource**:  
+  This resource provides information about meteorological stations, including their province, name, and unique identifier (indicativo).
 
-- **Climate Values Resource**:  
-  This resource offers various climate-related values, including temperature, humidity, and other weather measurements across different time periods. Details can be found [here](https://opendata.aemet.es/opendata/sh/b3aa9d28).
+- **[Climate Values](https://opendata.aemet.es/opendata/sh/b3aa9d28) Resource**:  
+  This resource offers various climate-related values, including temperature, humidity, and other weather measurements across different time periods.
 
 ## Usage
 
