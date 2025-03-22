@@ -18,20 +18,18 @@ Spain has over 900 meteorological stations across the country that collect valua
 
 ## Project Solution
 
-This project leverages the open data APIs provided by [AEMET (Agencia Estatal de Meteorología)](https://opendata.aemet.es/dist/index.html) to collect historical weather data from over 900 meteorological stations in Spain. The system gathers data on a yearly basis and processes it to generate detailed statistics on weather measurements (e.g., temperature, humidity, etc.) and the geographical locations of the stations. This approach allows users to easily analyze weather trends, compare station data, and gain insights into the meteorological conditions across the country.
+This project leverages the open data APIs provided by [AEMET (Agencia Estatal de Meteorología)](https://opendata.aemet.es/dist/index.html) to collect historical weather data from meteorological stations. The system gathers data on a yearly basis and processes it to generate detailed statistics on weather measurements (e.g., temperature, humidity, etc.) and the geographical locations of the stations. This approach allows users to easily analyze weather trends, compare station data, and gain insights into the meteorological conditions across the country.
 
 ## Tech Stack
 
-- **Google Cloud Platform**: Cloud infrastructure.
+- **BigQuery**: Data Warehouse.
+- **Google Cloud Storage**: Storage.
 - **Docker**: Containerization.
 - **Terraform**: Infrastructure as Code.
-- **Google Cloud Storage**: Storage.
-- **BigQuery**: Data Warehouse.
 - **Kestra**: Orchestration.
 - **dlt**: Data Loading tool.
 - **dbt**: Data Transformation tool.
 - **Looker Studio**: Data visualization.
-
 
 ## Prerequisites
 
@@ -43,20 +41,16 @@ Ensure you have the following installed and configured:
 
 ## Datasets
 
-AEMET (Agencia Estatal de Meteorología) provides a set of open data APIs that allow users to access meteorological data for Spain. These APIs provide valuable information, including climate values and weather station data. 
+AEMET provides open data APIs to access meteorological data for Spain, including climate values and weather station information. You can explore the available APIs [here](https://opendata.aemet.es/dist/index.html?).
 
-You can obtain an API key for free by registering at the following link:  
+To use these APIs, you can obtain a free API key by registering here:  
 [Get your free API Key](https://opendata.aemet.es/centrodedescargas/altaUsuario)
 
 ### API Metadata
 
-- **Climate Values**:  
-  Metadata for the Climate Values API can be found here:  
-  [Climate Values Metadata](https://opendata.aemet.es/opendata/sh/b3aa9d28)
+- **[Metadata for Climate Values API](https://opendata.aemet.es/opendata/sh/b3aa9d28)**
 
-- **Weather Stations**:  
-  Metadata for the Weather Stations API can be found here:  
-  [Weather Stations Metadata](https://opendata.aemet.es/opendata/sh/0556af7a)
+- **[Metadata for Weather Stations API](https://opendata.aemet.es/opendata/sh/0556af7a)**
 
 ## Terraform Setup
 ```sh
