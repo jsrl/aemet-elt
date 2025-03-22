@@ -23,7 +23,13 @@ tasks:
     type: io.kestra.plugin.core.flow.Subflow
     namespace: aemetelt
     flowId: load_weather_data 
-    wait: true 
+    wait: true
+
+  - id: transform_dbt
+    type: io.kestra.plugin.core.flow.Subflow
+    namespace: aemetelt
+    flowId: transform_dbt 
+    wait: true  
 
 triggers:
   - id: schedule
