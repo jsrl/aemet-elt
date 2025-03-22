@@ -1,5 +1,7 @@
 # AEMET ELT
 
+![AEMET ELT](images/aemetelt.gif)
+
 ## Prerequisites
 
 Ensure you have the following installed and configured:
