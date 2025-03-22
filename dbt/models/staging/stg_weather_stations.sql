@@ -7,11 +7,5 @@ select
     nombre,
     indicativo,
     provincia,
-    {{ categorize_provincia("provincia") }} as autonomous_community
-    --_dlt_id,
-    --longitud,
-    --indsinop,
-    --_dlt_load_id,
-    --latitud,
-    --altitud,    
+    {{ categorize_provincia("provincia") }} as autonomous_community    
 from weather_stations
