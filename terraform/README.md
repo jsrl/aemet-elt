@@ -1,5 +1,15 @@
 # Terraform
 
+Expected outputs:
+```sh
+Terraform has been successfully initialized!
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+```
+
+
 ## Key Terraform Commands
 1. **`terraform init`**: Initializes the Terraform project and downloads the required providers.
 2. **`terraform plan`**: Previews the changes Terraform will apply.

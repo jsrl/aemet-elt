@@ -46,29 +46,28 @@ AEMET provides open data APIs to access meteorological data for Spain, including
 To use these APIs, you can obtain a free API key by registering here:  
 [Get your free API Key](https://opendata.aemet.es/centrodedescargas/altaUsuario)
 
-### API Metadata
+### API Data Sources
 
-- **[Metadata for Climate Values API](https://opendata.aemet.es/opendata/sh/b3aa9d28)**
+- **Weather Stations Resource**:  
+  This resource provides information about meteorological stations, including their province, name, and unique identifier (indicativo). Details can be found [here](https://opendata.aemet.es/opendata/sh/0556af7a).
 
-- **[Metadata for Weather Stations API](https://opendata.aemet.es/opendata/sh/0556af7a)**
+- **Climate Values Resource**:  
+  This resource offers various climate-related values, including temperature, humidity, and other weather measurements across different time periods. Details can be found [here](https://opendata.aemet.es/opendata/sh/b3aa9d28).
 
-## Terraform Setup
+## Usage
+
+### 1. Setting Up Infrastructure with Terraform
+
 ```sh
 cd terraform
 terraform init
 terraform plan -var="project=projectId"
 terraform apply -var="project=projectId"
 ```
-Expected outputs:
-```sh
-Terraform has been successfully initialized!
 
-Plan: 3 to add, 0 to change, 0 to destroy.
+For more detailed explanations and expected outputs, refer to the [Terraform README](terraform/README.md).
 
-Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
-```
-
-## Start Kestra with Docker
+### 2. Orchestration with Kestra
 Navigate to the Kestra directory and start the service:
 ```sh
 cd ../ketra
