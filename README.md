@@ -74,10 +74,10 @@ terraform apply -var="project=projectId"
 After running this, Terraform will create:
 * A GCS bucket to store the data.
 
-![gcs bucket creation](images/bucket-creation.png)
+![gcs bucket creation](images/bucket-creation.PNG)
 * Two BigQuery datasets: one for raw data and another for transformed data.
 
-![bigquery datasets creation](images/datasets-creation.png)
+![bigquery datasets creation](images/datasets-creation.PNG)
 
 For more detailed explanations and expected outputs, refer to the [Terraform README](terraform/README.md).
 
