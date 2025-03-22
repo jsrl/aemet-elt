@@ -1,0 +1,106 @@
+version: 2
+
+sources:
+  - name: staging
+    database: aemetelt
+    schema: weather_dataset
+
+    tables:
+      - name: climatic_values
+      - name: weather_stations
+
+models:
+  - name: stg_weather_stations
+    description: "Staging table containing weather station information."
+    columns:
+      - name: record_id
+        data_type: string
+        description: "Unique identifier for the weather station record."
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: nombre
+        data_type: string
+        description: "The name of the weather station."
+
+      - name: indicativo
+        data_type: string
+        description: "The unique identifier for the weather station."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: provincia
+        data_type: string
+        description: "The province where the weather station is located."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: autonomous_community
+        data_type: string
+        description: "The autonomous community where the weather station is located."
+        tests:
+          - not_null:
+              severity: warn
+
+  - name: stg_climatic_values
+    description: "Staging table containing climatic data recorded by weather stations."
+    columns:
+      - name: record_id
+        data_type: string
+        description: "Unique identifier for the climatic record."
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: fecha
+        data_type: date
+        description: "The date the climatic data was recorded."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: indicativo
+        data_type: string
+        description: "The unique identifier for the weather station that recorded the data."
+        tests:
+          - not_null:
+              severity: warn
+          - relationships:
+              field: indicativo
+              to: ref('stg_weather_stations')
+              severity: warn
+
+      - name: tmin
+        data_type: float64
+        description: "The minimum temperature recorded for the day in degrees Celsius."
+
+      - name: tmax
+        data_type: float64
+        description: "The maximum temperature recorded for the day in degrees Celsius."
+
+      - name: tmed
+        data_type: float64
+        description: "The average temperature recorded for the day in degrees Celsius."
+
+      - name: velmedia
+        data_type: float64
+        description: "The average wind speed recorded for the day in meters per second."
+
+      - name: velmedia_description
+        data_type: string
+        description: "The description of the wind speed based on the Beaufort scale."
+
+      - name: prec
+        data_type: string
+        description: "The precipitation recorded for the day, typically in millimeters."
+
+      - name: ano
+        data_type: int64
+        description: "The year the climatic data was recorded."

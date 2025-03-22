@@ -1,0 +1,103 @@
+version: 2
+
+models:
+  - name: dim_station_count_by_region
+    description: "A dimension table containing the count of weather stations by autonomous community."
+    columns:
+      - name: region
+        data_type: string
+        description: "The autonomous community or region of the weather stations."
+
+      - name: total_stations
+        data_type: int64
+        description: "The total number of weather stations in the respective autonomous community."
+
+  - name: fact_weather
+    description: "A fact table containing daily weather records from weather stations."
+    columns:
+      - name: record_id
+        data_type: string
+        description: "Unique identifier for the weather record."
+
+      - name: fecha
+        data_type: date
+        description: "The date of the weather record."
+
+      - name: indicativo
+        data_type: string
+        description: "The unique identifier for the weather station."
+
+      - name: tmin
+        data_type: float64
+        description: "The minimum temperature recorded for the day in degrees Celsius."
+
+      - name: tmax
+        data_type: float64
+        description: "The maximum temperature recorded for the day in degrees Celsius."
+
+      - name: tmed
+        data_type: float64
+        description: "The average temperature recorded for the day in degrees Celsius."
+
+      - name: velmedia
+        data_type: float64
+        description: "The average wind speed recorded for the day in meters per second."
+
+      - name: velmedia_description
+        data_type: string
+        description: "The description of the wind speed based on the Beaufort scale."
+
+      - name: prec
+        data_type: string
+        description: "The precipitation recorded for the day, typically in millimeters."
+
+      - name: ano
+        data_type: int64
+        description: "The year of the weather record."
+
+      - name: nombre
+        data_type: string
+        description: "The name of the weather station."
+
+      - name: provincia
+        data_type: string
+        description: "The province where the weather station is located."
+
+      - name: autonomous_community
+        data_type: string
+        description: "The autonomous community where the weather station is located."
+
+  - name: dim_monthly_climatic_data
+    description: "A dimension table summarizing monthly climatic data for each province and region."
+    columns:
+      - name: province
+        data_type: string
+        description: "The province where the weather station is located."
+
+      - name: region
+        data_type: string
+        description: "The autonomous community or region of the weather stations."
+
+      - name: weather_month
+        data_type: timestamp
+        description: "The month for which the climatic data is summarized."
+
+      - name: avg_monthly_tmin
+        data_type: float64
+        description: "The average of the minimum daily temperatures for the month."
+
+      - name: avg_monthly_tmax
+        data_type: float64
+        description: "The average of the maximum daily temperatures for the month."
+
+      - name: avg_monthly_tmed
+        data_type: float64
+        description: "The average of the daily average temperatures for the month."
+
+      - name: avg_monthly_wind_speed
+        data_type: float64
+        description: "The average wind speed for the month in meters per second."
+
+      - name: total_monthly_records
+        data_type: int64
+        description: "The total number of climatic records for the month."
