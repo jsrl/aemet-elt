@@ -65,6 +65,12 @@ terraform plan -var="project=projectId"
 terraform apply -var="project=projectId"
 ```
 
+After running this, Terraform will create:
+* A GCS bucket for storing the data.
+![gcs bucket creation](images/bucket-creation.png)
+* Two BigQuery datasets (one for raw and another one for transformed data).
+![bigquery datasets creation](datasets-creation.png)
+
 For more detailed explanations and expected outputs, refer to the [Terraform README](terraform/README.md).
 
 ### 2. Orchestration with Kestra
