@@ -16,11 +16,11 @@
 
 The service account created for this project is the following:
 
-![terraform service account](../images/terraform-service-account.png)
+![terraform service account](../images/terraform-service-account.PNG)
 
 This account has been assigned the following permissions:
 
-![terraform service account](../images//terraform-service-account-permissions.png)
+![terraform service account](../images//terraform-service-account-permissions.PNG)
 
 > **Note**: The permissions outlined here (such as **Storage Admin** or **BigQuery Admin**) are broad and intended for development purposes. In a production environment, it is recommended to follow the principle of least privilege by granting more restricted permissions that only allow the necessary actions. This helps to minimize security risks and ensure a more secure environment.
 
