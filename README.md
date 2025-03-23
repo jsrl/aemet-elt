@@ -113,6 +113,30 @@ In the aemetelt key store should contain the following:
 
 ![kestra kv store](images/kestra-kv-store.PNG)
 
-* Step 4: Go to the flow master_flow and execute it. Will ask you a year as an input
+* Step 4: Navigate to the master_flow and execute it. You will be prompted to input a year.
 
 ![kestra master input](images/kestra-master-input.PNG)
+
+Once the execution finishes successfully...
+
+![kestra master ok](images/kestra-master-ok.PNG)
+
+You will have the Parquet files for the specified year stored in GCS:
+
+![gcs parquet](images/gcs-parquet.PNG)
+
+Additionally, the BigQuery datasets will be populated:
+
+![kestra master ok](images/bq-datasets-filled.PNG)
+
+* climatic_values is partitioned by ano and clustered by indicativo
+
+![table partitioned clustered](images/partitionedandclustered.PNG)
+
+* weather_stations is clustered by provincia
+
+![table clustered](images/clustered.PNG)
+
+#### Re-executing for a different year
+
+Re-running the flow for another year will append the data in GCS and replace the tables in BigQuery, ensuring all existing data is reloaded.
