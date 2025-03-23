@@ -48,10 +48,10 @@ To use these APIs, you can obtain a free API key by registering [here](https://o
 
 ### API Data Sources
 
-- **[Weather Stations](https://opendata.aemet.es/opendata/sh/0556af7a) Resource**:  
+- **[Weather Stations](https://opendata.aemet.es/opendata/sh/0556af7a)**:  
   This resource provides information about meteorological stations, including their province, name, and unique identifier (indicativo).
 
-- **[Climate Values](https://opendata.aemet.es/opendata/sh/b3aa9d28) Resource**:  
+- **[Climate Values](https://opendata.aemet.es/opendata/sh/b3aa9d28)**:  
   This resource offers various climate-related values, including temperature, humidity, and other weather measurements across different time periods.
 
 ## Usage
@@ -82,12 +82,37 @@ After running this, Terraform will create:
 For more detailed explanations and expected outputs, refer to the [Terraform README](terraform/README.md).
 
 ### 2. Orchestration with Kestra
-Navigate to the Kestra directory and start the service:
+
+#### 🔹 **Flow Details**
+
+- **`extract_weather_data.yaml`**: Extracts all data from the **weather_stations** and **climatic_value** tables using **dlt**. The data is stored in **GCS** in **Parquet** format.
+
+- **`load_gcp_kv.yaml`**: Sets up the necessary **key-value pairs** in the namespace for the Kestra flows.
+
+- **`load_weather_data.yaml`**: Loads all **Parquet files** into the corresponding **BigQuery datasets**.
+
+- **`master_flow.yaml`**: Orchestrates the **extract**, **transform**, and **load** flows in sequence for a specified year.
+
+- **`transform_dbt.yaml`**: Applies **dbt** to transform the data for analytical purposes.
+
+#### **Instructions**
+
+* Step 1: Navigate to the Kestra directory and start the service:
 ```sh
 cd ../ketra
 docker compose up -d
 ```
 Once running, Kestra should be accessible at http://localhost:8080.
 
+* Step 2: Go to flows and import all the kestra/flows/*.yaml files
 
+![kestra flows](images/kestra-flows.PNG)
 
+* Step 3: Edit the load_gcp_kv.yaml with the GCP / AEMET keys and execute it.
+In the aemetelt key store should contain the following:
+
+![kestra kv store](images/kestra-kv-store.PNG)
+
+* Step 4: Go to the flow master_flow and execute it. Will ask you a year as an input
+
+![kestra master input](images/kestra-master-input.PNG)

@@ -1,6 +1,6 @@
-id: extract_load_master_flow
+id: master_flow
 namespace: aemetelt
-description: "Master flow that extracts and loads the weather data"
+description: "Master flow that extracts ,loads and transform the weather data"
 
 inputs:
   - id: year    
