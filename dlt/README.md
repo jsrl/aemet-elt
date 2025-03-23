@@ -19,7 +19,9 @@ Key features of `dlt` include:
 
 - **Existing BigQuery Tables**: BigQuery tables will not automatically change data types if the input schema changes. This means that once a schema is set for a table, you will need to handle any data type adjustments manually if your input schema evolves.
 
-## Python Environment Setup
+## Python Environment Setup (Local Execution)
+
+To set up the Python environment for local execution, follow these steps:
 ```sh
 python -m venv venv
 source venv/Scripts/activate

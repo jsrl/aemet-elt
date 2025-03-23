@@ -10,8 +10,6 @@ Key features of **dbt** include:
 - **Version Control Integration**: dbt works seamlessly with Git, allowing for collaboration and version control on your data transformation scripts.
 - **Modular and Scalable**: dbt's modular approach lets you build reusable data models that can scale with your project needs.
 
-dbt is widely used in modern data engineering workflows to enable the development of robust, efficient, and maintainable data pipelines.
-
 ## dbt Configuration
 
 To configure **dbt** to work with BigQuery, you need to create a **service account** with the necessary permissions for accessing BigQuery.

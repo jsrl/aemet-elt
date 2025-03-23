@@ -17,12 +17,12 @@ Spain has over 900 meteorological stations across the country that collect valua
 
 ## Project Solution
 
-This project leverages the open data APIs provided by [AEMET (Agencia Estatal de Meteorología)](https://opendata.aemet.es/dist/index.html) to collect historical weather data from meteorological stations. The system gathers data on a yearly basis and processes it to generate detailed statistics on weather measurements (e.g., temperature, humidity, etc.) and the geographical locations of the stations. This approach allows users to easily analyze weather trends, compare station data, and gain insights into the meteorological conditions across the country.
+This project leverages the open data APIs provided by [AEMET (Agencia Estatal de Meteorología)](https://opendata.aemet.es/dist/index.html) to collect historical weather data from meteorological stations. The system gathers data for a specific year and processes it to generate detailed statistics on weather measurements (e.g., temperature, humidity, etc.) and the geographical locations of the stations. This approach allows users to easily analyze weather trends, compare station data, and gain insights into the meteorological conditions across the country.
 
 ## Tech Stack
 
 - **BigQuery**: Data Warehouse.
-- **Google Cloud Storage**: Storage.
+- **Google Cloud Storage**: Object storage service.
 - **Docker**: Containerization.
 - **Terraform**: Infrastructure as Code.
 - **Kestra**: Orchestration.
@@ -34,9 +34,9 @@ This project leverages the open data APIs provided by [AEMET (Agencia Estatal de
 
 Ensure you have the following installed and configured:
 
-- A Google Cloud Project with a Service Account and its associated key.
-- Docker Desktop
-- Terraform
+- A **Google Cloud Project** with a Service Account and its associated key.
+- **Docker Desktop** for containerization.
+- **Terraform** for infrastructure provisioning.
 
 ## Datasets
 
@@ -107,8 +107,7 @@ Once running, Kestra should be accessible at http://localhost:8080.
 
 ![kestra flows](images/kestra-flows.PNG)
 
-* Step 3: Edit the load_gcp_kv.yaml with the GCP / AEMET keys and execute it.
-In the aemetelt key store should contain the following:
+* Step 3: Edit the load_gcp_kv.yaml file with the GCP and AEMET keys, then execute it. The aemetelt key store should contain the following:
 
 ![kestra kv store](images/kestra-kv-store.PNG)
 
