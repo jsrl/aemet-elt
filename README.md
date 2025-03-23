@@ -141,3 +141,13 @@ Additionally, the BigQuery datasets will be populated:
 Re-running the flow for another year will append the data in GCS and replace the tables in BigQuery, ensuring all existing data is reloaded.
 
 ## Visualization
+
+I used Looker Studio to visualize various statistics, including:
+
+- The distribution of weather stations across autonomous communities in Spain.
+- Averages, minimums, and maximum temperatures recorded by these stations.
+
+Below is a snapshot of the dashboard:
+
+![looker studio](images/looker.PNG)
+
