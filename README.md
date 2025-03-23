@@ -9,8 +9,7 @@
 4. [Prerequisites](#prerequisites)
 5. [Datasets](#datasets)
 6. [Usage](#usage)
-7. [Orchestration](#orchestration)
-8. [Visualization](#visualization)
+7. [Visualization](#visualization)
 
 ## Problem Statement
 
@@ -140,3 +139,5 @@ Additionally, the BigQuery datasets will be populated:
 #### Re-executing for a different year
 
 Re-running the flow for another year will append the data in GCS and replace the tables in BigQuery, ensuring all existing data is reloaded.
+
+## Visualization
